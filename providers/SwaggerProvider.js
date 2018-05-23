@@ -13,6 +13,11 @@ class SwaggerProvider extends ServiceProvider {
     apis = apis.concat(apisConfig)
 
     if (Config.get('swagger.enable')) {
+      const callbackConfig = Config.get('swagger.callback');
+
+      let callback;
+      if (callbackConfig) callback = require(callbackConfig);
+
       Route.get('/swagger.json', async ({ response }) => {
         const options = {
           swaggerDefinition: {
@@ -42,6 +47,8 @@ class SwaggerProvider extends ServiceProvider {
           },
           apis: apis
         }
+
+        if (callback) options = callback(options);
 
         return swaggerJSDoc(options)
       })
