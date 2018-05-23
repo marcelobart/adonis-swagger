@@ -19,7 +19,7 @@ class SwaggerProvider extends ServiceProvider {
       if (callbackConfig) callback = require(callbackConfig);
 
       Route.get('/swagger.json', async ({ response }) => {
-        const options = {
+        let options = {
           swaggerDefinition: {
             info: {
               title: Config.get('swagger.title'),
