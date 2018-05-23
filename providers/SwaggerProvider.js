@@ -48,9 +48,11 @@ class SwaggerProvider extends ServiceProvider {
           apis: apis
         }
 
+        options = swaggerJSDoc(options);
+
         if (callback) options = callback(options);
 
-        return swaggerJSDoc(options)
+        return options;
       })
     }
   }
